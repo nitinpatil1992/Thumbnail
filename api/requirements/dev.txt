@@ -1,0 +1,6 @@
+# prod dependencies
+-r prod.txt
+
+# Test packages
+pytest
+WebTest

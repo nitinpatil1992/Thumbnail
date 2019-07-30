@@ -1,0 +1,2 @@
+# get production dependencies
+-r requirements/prod.txt

@@ -1,0 +1,10 @@
+{
+    "Environment" : "test",
+	"RabbitmqAMQPUri" :  "amqp://guest:guest@test_rabbitmqhost:5672/",
+	"RabbitmqQueue" : "ImageConverter",
+    "ConsumerTag" : "DevConsumer",
+    "ReddisAddress" : "test_redishost:6379",
+    "ThumbnailStoragePath" : "/data/",
+    "ThumbnailHeight" : 100,
+	"ThumbnailWidth"  :  100
+}

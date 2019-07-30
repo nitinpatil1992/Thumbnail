@@ -1,0 +1,53 @@
+version: '3'
+services:
+  api:
+    build:
+      context: ./api
+    depends_on:
+      - rabbitmqhost
+      - redishost
+    ports:
+      - 5000:5000  
+    volumes:
+      - image-storage:/data
+    networks:
+      - nwcache
+      - nwqueue
+
+  worker:
+    build:
+      context: ./worker
+    environment:
+      - env=prod
+    depends_on:
+      - rabbitmqhost
+      - redishost
+    tty: true
+    volumes:
+      - image-storage:/data
+    networks:
+      - nwcache
+      - nwqueue
+
+  redishost:
+    image: redis:4-alpine
+    networks:
+      - nwcache
+  
+  rabbitmqhost:
+    build:
+      context: ./rabbitmq
+    hostname: imagequeue
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    tty: true
+    networks:
+      - nwqueue
+ 
+volumes:
+  image-storage:
+
+networks:
+  nwcache:
+  nwqueue:

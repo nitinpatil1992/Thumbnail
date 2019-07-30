@@ -98,11 +98,13 @@ File uploader endpoint specific to `png` format
 ```
 
 Here are the response codes and messages descriptions 
-| Request |Response_Code | Response_Keys | Sample response |
-| ------ | ------ | ------ | ------ |
-| Valid png |200 | request_id: type(string:uuid) | {“request_id” : “990663a4-1bd8-4cde-ace6-8592c3baaf52”} | 
-| Upload file other than PNG format or PNG with zero size |400 | message: type(string) | {“message” : “Bad request”} | 
-| Exceptions like Connection errors with redis or rabbitmq|503 | message: type(string) | {“message” : “Internal Server Error, Try again later”} | 
+
+Request |Response_Code | Response_Keys | Sample response
+------ | ------ | ------ | ------
+Valid png |200 | request_id: type(string:uuid) | {“request_id” : “990663a4-1bd8-4cde-ace6-8592c3baaf52”}
+Upload file other than PNG format or PNG with zero size |400 | message: type(string) | {“message” : “Bad request”}
+Exceptions like Connection errors with redis or rabbitmq|503 | message: type(string) | {“message” : “Internal Server Error, Try again later”}
+
 
 #### `GET` /image/${request_id}/thumbnail
 Thumbnail endpoint providing status of thumbnail generation and thumnnail  
@@ -157,11 +159,12 @@ Thumbnail endpoint providing status of thumbnail generation and thumnnail
   
 ##### Response codes and description:
  Here are the response codes and messages 
-| Request |Response_Code | Response_Keys | Sample response |
-| ------ | ------ | ------ | ------ |
-| Valid request_id(from POST /image response) |200 | request_id: type(string:uuid) (always), thumbnail_status: string:(COMPLETED,PROCESSING,FAILED) (always), result:type(json) (on successful image generation) | {“request_id” : “990663a4-1bd8-4cde-ace6-8592c3baaf52”} | 
-| Upload file other than PNG format or PNG with zero size |400 | message: type(string) | {“message” : “No such request registered in system”} | 
-| Exceptions like Connection errors with redis or rabbitmq|503 | message: type(string) | {“message” : “Internal Server Error, Try again later”} | 
+ 
+Request | Response_Code | Response_Keys | Sample response
+------ | ------ | ------ | ------
+Valid request_id(from POST /image response) |200 | request_id: type(string:uuid) (always), thumbnail_status: string:(COMPLETED,PROCESSING,FAILED) (always), result:type(json) (on successful image generation) | {“request_id” : “990663a4-1bd8-4cde-ace6-8592c3baaf52”}
+Upload file other than PNG format or PNG with zero size |400 | message: type(string) | {“message” : “No such request registered in system”}
+Exceptions like Connection errors with redis or rabbitmq|503 | message: type(string) | {“message” : “Internal Server Error, Try again later”}
 
 #### `GET` /image/${request_id}
 Provide Thumbnail image 
@@ -184,18 +187,21 @@ Provide Thumbnail image
   
 ##### Response codes and description:
  Here are the response codes and messages 
-| Request |Response_Code | Response_Keys | Sample response |
-| ------ | ------ | ------ | ------ |
-| Valid request_id(from POST /image response) |200 | N/A | image bytes | 
-| Invalid request_id | 404 | message: type(string) | {“message” : “File not found”} | 
+
+Request |Response_Code | Response_Keys | Sample response
+------ | ------ | ------ | ------ 
+Valid request_id(from POST /image response) |200 | N/A | image bytes | 
+Invalid request_id | 404 | message: type(string) | {“message” : “File not found”}
 
 ## Execution (User Acceptance testing)
 ### System requirement
+
 Development and testing is done on below docker environment
-| Utility | Desctiption |
-| ------ | ------ |
-| Docker (mac/linux) | latest version(Docker version 18.09.0, build 4d60db4) |
-| Docker compose (mac/linux) | latest version (docker-compose version 1.23.2, build 1110ad01) |
+
+Utility | Description
+------ | ------
+Docker (mac/linux) | latest version(Docker version 18.09.0, build 4d60db4)
+Docker compose (mac/linux) | latest version (docker-compose version 1.23.2, build 1110ad01)
 
 feel free to upgrade your personal computer to work service properly.
 

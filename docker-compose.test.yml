@@ -1,0 +1,56 @@
+version: '3'
+services:
+  test_api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.test
+    depends_on:
+      - test_redishost
+      - test_rabbitmqhost
+      - test_worker
+    environment:
+      - FLASK_DEBUG=1
+    volumes:
+      - test-image-storage:/data
+    networks:
+      - test_nwcache
+      - test_nwqueue
+
+  test_worker:
+    build:
+      context: ./worker
+    depends_on:
+      - test_redishost
+      - test_rabbitmqhost
+    environment:
+      - env=test
+    tty: true
+    volumes:
+      - test-image-storage:/data
+    networks:
+      - test_nwcache
+      - test_nwqueue
+  
+  test_redishost:
+    image: redis:4-alpine
+    networks:
+      - test_nwcache
+  
+  test_rabbitmqhost:
+    build:
+      context: ./rabbitmq
+    hostname: imagequeue
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    tty: true
+    networks:
+      - test_nwqueue
+
+
+volumes:
+  test-image-storage:
+
+networks:
+  test_nwcache:
+  test_nwqueue:

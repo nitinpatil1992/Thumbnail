@@ -1,0 +1,57 @@
+{
+    "rabbit_version": "3.7.15",
+    "users": [
+      {
+        "name": "guest",
+        "password_hash": "j2IGxqgeE7JDDGmWyDhrNUgqBGVRpV96otu4pqtYTUmmn8JZ",
+        "hashing_algorithm": "rabbit_password_hashing_sha256",
+        "tags": "administrator"
+      }
+    ],
+    "vhosts": [
+      {
+        "name": "/"
+      }
+    ],
+    "permissions": [
+      {
+        "user": "guest",
+        "vhost": "/",
+        "configure": ".*",
+        "write": ".*",
+        "read": ".*"
+      }
+    ],
+    "topic_permissions": [
+      
+    ],
+    "parameters": [
+      
+    ],
+    "global_parameters": [
+      {
+        "name": "cluster_name",
+        "value": "rabbit@imagequeue"
+      }
+    ],
+    "policies": [
+      
+    ],
+    "queues": [
+      {
+        "name": "ImageConverter",
+        "vhost": "/",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {
+          
+        }
+      }
+    ],
+    "exchanges": [
+      
+    ],
+    "bindings": [
+      
+    ]
+  }

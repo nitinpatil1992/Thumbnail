@@ -1,0 +1,56 @@
+version: '3'
+services:
+  dev_api:
+    build:
+      context: ./api
+    depends_on:
+      - dev_redishost
+      - dev_rabbitmqhost
+    environment:
+      - FLASK_DEBUG=1
+    ports:
+      - 5000:5000
+    command: flask run --host=0.0.0.0
+    volumes:
+      - dev-image-storage:/data
+    networks:
+      - dev_nwcache
+      - dev_nwqueue
+
+  dev_worker:
+    build:
+      context: ./worker
+    depends_on:
+      - dev_rabbitmqhost
+      - dev_redishost
+    environment:
+      - env=dev
+    tty: true
+    volumes:
+      - dev-image-storage:/data
+    networks:
+      - dev_nwcache
+      - dev_nwqueue
+  
+  dev_redishost:
+    image: redis:4-alpine
+    networks:
+      - dev_nwcache
+  
+  dev_rabbitmqhost:
+    build:
+      context: ./rabbitmq
+    hostname: imagequeue
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    tty: true
+    networks:
+      - dev_nwqueue
+
+volumes:
+  dev-image-storage:
+
+networks:
+  dev_nwcache:
+  dev_nwqueue:
